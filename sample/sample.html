@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script type="text/javascript" src="socket.io.js" defer></script>
+
+	<!-- must be included after the client script, on a browser it will automatically overwrite the io constructor to add emitWait -->
+	<script type="text/javascript" src="socket.io.wait.js" defer></script>
+	
+	<script type="text/javascript" defer>
+	
+		// Connect to the server
+		var con = io("http://localhost:3000");
+
+		// optional settings - how long it should wait for a response in ms
+		con.emitWaitTimeout = 30000;
+
+		// If it should return resolve(null) or reject() after the timeout
+		con.emitWaitReject = false;
+
+		con.on("connection", async function()
+		{
+			// use emitWait when you want to wait for a response from the server for this call
+			// after 5000 milliseconds it will return the object that contains sum and foo
+			let result = await con.emitWait("get_info", 1, 2, 5000);
+
+			// outputs the result object from the server
+			console.log("Object from server", result);
+		});
+
+</script>
+
+</head>
+<body>
+	
+</body>
+</html>
