@@ -1,7 +1,7 @@
 # socket.io.wait
 Adds a promise to emit in socket.io
 
-
+```
 // Lets you emit and get a response rather than make a second
 // callback to listen for the result
 let result = await socket.emitWait("get_data", 123, 456);
@@ -24,4 +24,4 @@ socket.on("get_data_result", function(result)
 });
 
 socket.emit("get_data", 123, 456);
-
+```
